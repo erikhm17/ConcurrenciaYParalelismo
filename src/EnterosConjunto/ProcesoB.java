@@ -30,44 +30,53 @@ public class ProcesoB implements Runnable {
             MyMap value = T.get(i);
 
             if (menor.getValor() >= value.getValor()) {
-                menor = value;
-                menor.setIndice(i); /* asignamos el indice del For...*/
+                menor = new MyMap(value.getClave(), value.getValor());
             }
         }
         return menor;
     }
 
+    public int getIndex(MyMap myMap) {
+        int j = 0;
+        for (int i = 0; i < this.T.size(); i++) {
+            if (myMap.getValor() == T.get(i).getValor()) {
+                j = i;
+            }
+        }
+        return j;
+    }
+
     @Override
     public void run() {
-        while (true) {
-            try {
-                MyMap data = buzonSincrono.take();
+        try {
+            MyMap data = null;
+
+            while ((data = buzonSincrono.take()).getClave() != Main.infinito) {
                 System.out.println("Recupero el dato enviado por A : " + data.getValor());
                 MyMap auxData = new MyMap(data.getClave(), data.getValor());
-                while (data.getClave() != -1) {
-                    MyMap menor = getMenor(T);
-                    MyMap auxMenor = new MyMap(menor.getClave(), menor.getValor());
+                MyMap menor = getMenor(T);
+                MyMap auxMenor = new MyMap(menor.getClave(), menor.getValor());
 
-                    System.out.println("El menor de T es : " + menor.getValor());
+                System.out.println("El menor de T es : " + menor.getValor());
 
-                    if (data.getValor() >= menor.getValor()) {
-                        System.out.println("Intercambio datos en el arreglo T  " + data.getValor() + " indice : "
-                                + menor.getIndice());
-                        T.get(menor.getIndice()).setValor(data.getValor());
-                        System.out.println("Envio a A el menor : " + auxMenor.getValor());
-                        buzonSincrono.put(auxMenor);
-                    } else {
-                        buzonSincrono.put(auxData);
-                    }
+                if (data.getValor() >= menor.getValor()) {
+                    System.out.println("Intercambio datos en el arreglo T  " + data.getValor() + " indice : "
+                            + getIndex(menor));
+                    T.get(getIndex(menor)).setValor(data.getValor());
+                    System.out.println("Envio a A el menor : " + auxMenor.getValor());
+                    buzonSincrono.put(auxMenor);
+
+                } else {
+                    buzonSincrono.put(auxData);
                 }
-                System.out.println("Escribiendo el arreglo T ");
-                for (int i = 0; i <= T.size(); i++) {
-                    System.out.println("clave: " + T.get(i).getClave() + " valor : " + T.get(i).getValor());
-                }
-
-            } catch (InterruptedException intEx) {
-                System.out.println(" Opps, paso algo interrupido ");
             }
+            System.out.println("Escribiendo el arreglo T ");
+            for (int i = 0; i < T.size(); i++) {
+                System.out.println("clave: " + T.get(i).getClave() + " valor : " + T.get(i).getValor());
+            }
+
+        } catch (InterruptedException intEx) {
+            System.out.println(" Opps, paso algo interrupido ");
         }
     }
 }

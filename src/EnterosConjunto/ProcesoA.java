@@ -30,11 +30,20 @@ public class ProcesoA implements Runnable {
         for (int i = 1; i < T.size(); i++) {
             MyMap value = T.get(i);
             if (mayor.getValor() <= value.getValor()) {
-                mayor = value;
-                mayor.setIndice(i);
+                mayor = new MyMap(value.getClave(), value.getValor());
             }
         }
         return mayor;
+    }
+
+    public int getIndex(MyMap myMap) {
+        int j = 0;
+        for (int i = 0; i < this.S.size(); i++) {
+            if (myMap.getValor() == S.get(i).getValor()) {
+                j = i;
+            }
+        }
+        return j;
     }
 
     @Override
@@ -42,29 +51,27 @@ public class ProcesoA implements Runnable {
         /* recupero en cada ciclo el mensaje en cada elemento de la
         * lista */
         try {
-            int x = 0;
             for (MyMap s : S) {
                 MyMap mayor = getMayor(S);
                 System.out.println("Enviar el mayor : " + mayor.getValor());
                 buzonSincrono.put(mayor);
 
-                MyMap data = buzonSincrono.take();
-                System.out.println("Recupero de B : " + data.getValor());
-                if (data.getClave() != -1) {
-                    System.out.println("Intecambio valores en S " + data.getValor() +
-                            " en el indice " + mayor.getIndice());
+                MyMap data = null;
 
-                    s.setValor(data.getValor());
-                    System.out.println(" el objeto s ahora tiene el valor : " + s.getValor());
-                    S.get(mayor.getIndice()).setValor(data.getValor());
-                    System.out.println("Asigno en el indice de S " + mayor.getIndice() +
+                if ((data = buzonSincrono.take()).getClave() != Main.infinito) {
+                    S.get(getIndex(mayor)).setValor(data.getValor());
+
+                    System.out.println("Asigno en el indice de S " + getIndex(mayor) +
                             "el valor : " + data.getValor());
+                    for (MyMap s1 : S) {
+                        System.out.println("Clave : " + s1.getClave() + " Valor : " + s1.getValor());
+                    }
+                    System.out.println("##################################################################");
                 }
 
-                x++;
             }
             System.out.println("Salio del bucle en A ");
-            buzonSincrono.put(new MyMap(-1, -1));
+            buzonSincrono.put(new MyMap(Main.infinito, Main.infinito));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

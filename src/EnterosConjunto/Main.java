@@ -15,21 +15,25 @@ import java.util.concurrent.SynchronousQueue;
  */
 
 public class Main {
+    final static int infinito = -100000000;
+
     public static void main(String[] args) {
         BlockingQueue<MyMap> buzon = new SynchronousQueue<>();
 
+
         ArrayList<MyMap> S = new ArrayList<>();
-        S.add(new MyMap(0, 5));
-        S.add(new MyMap(1, 7));
-        S.add(new MyMap(2, 8));
-        S.add(new MyMap(3, 9));
+        S.add(new MyMap(0, -1));
+        S.add(new MyMap(1, 2));
+        S.add(new MyMap(2, 3));
+        S.add(new MyMap(3, -4));
+        S.add(new MyMap(3, -6));
 
         ArrayList<MyMap> T = new ArrayList<>();
-        T.add(new MyMap(0, 4));
+        T.add(new MyMap(0, -5));
         T.add(new MyMap(1, 6));
-        T.add(new MyMap(2, 1));
-        T.add(new MyMap(3, 2));
-        T.add(new MyMap(4, 3));
+        T.add(new MyMap(2, 7));
+        T.add(new MyMap(3, -8));
+        T.add(new MyMap(4, 9));
         T.add(new MyMap(4, 10));
 
 

@@ -6,7 +6,7 @@ package EnterosConjunto;
 public class MyMap {
     private int clave;
     private int valor;
-    private int indice;
+
 
     public MyMap(int clave, int valor) {
         this.clave = clave;
@@ -29,11 +29,5 @@ public class MyMap {
         this.valor = valor;
     }
 
-    public int getIndice() {
-        return indice;
-    }
 
-    public void setIndice(int indice) {
-        this.indice = indice;
-    }
 }

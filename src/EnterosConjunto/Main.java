@@ -16,24 +16,25 @@ import java.util.concurrent.SynchronousQueue;
 
 public class Main {
     public static void main(String[] args) {
-        BlockingQueue<Integer> buzon = new SynchronousQueue<>();
+        BlockingQueue<MyMap> buzon = new SynchronousQueue<>();
 
-        ArrayList<Integer> S = new ArrayList<>();
-        S.add(new Integer(5));
-        S.add(new Integer(7));
-        S.add(new Integer(8));
-        S.add(new Integer(9));
+        ArrayList<MyMap> S = new ArrayList<>();
+        S.add(new MyMap(0, 5));
+        S.add(new MyMap(1, 7));
+        S.add(new MyMap(2, 8));
+        S.add(new MyMap(3, 9));
 
-        ArrayList<Integer> T = new ArrayList<>();
-        S.add(new Integer(4));
-        S.add(new Integer(8));
-        S.add(new Integer(1));
-        S.add(new Integer(2));
-        S.add(new Integer(3));
+        ArrayList<MyMap> T = new ArrayList<>();
+        T.add(new MyMap(0, 4));
+        T.add(new MyMap(1, 6));
+        T.add(new MyMap(2, 1));
+        T.add(new MyMap(3, 2));
+        T.add(new MyMap(4, 3));
+        T.add(new MyMap(4, 10));
 
 
         new Thread(new ProcesoA(buzon, S)).start();
-        new Thread(new ProcesoB(buzon,T)).start();
+        new Thread(new ProcesoB(buzon, T)).start();
 
     }
 

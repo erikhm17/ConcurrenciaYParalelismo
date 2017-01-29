@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Main {
     public static void main(String[] args) {
-        MBarbero mBarbero = new MBarbero();
+   /*     MBarbero mBarbero = new MBarbero();
         Barbero barbero = new Barbero(mBarbero);
         Cliente cliente1 = new Cliente(mBarbero);
         Cliente cliente2 = new Cliente(mBarbero);
@@ -34,6 +34,6 @@ public class Main {
         cliente7.start();
         cliente8.start();
         cliente9.start();
-        cliente10.start();
+        cliente10.start();*/
     }
 }

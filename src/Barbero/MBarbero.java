@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Created by hammer on 27/01/17.
  */
 public class MBarbero {
-    int sillas = 50;
+    int sillas = 6;
     int numeroSillas = sillas;
 
     final ReentrantLock bloqueador = new ReentrantLock();

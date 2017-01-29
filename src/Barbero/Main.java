@@ -2,14 +2,23 @@ package Barbero;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Created by hammer on 27/01/17.
  */
 public class Main {
+    static Coordenada[] coordenadas = new Coordenada[]{
+            new Coordenada(340, 320, false),
+            new Coordenada(480, 310, false),
+            new Coordenada(600, 300, false),
+            new Coordenada(700, 300, false),
+            new Coordenada(730, 360, false),
+            new Coordenada(840, 400, false)
+    };
+
     public static void main(String[] args) {
+
+
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
         //contentPane.setLayout(new FlowLayout());
@@ -20,6 +29,8 @@ public class Main {
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        Thread hilo = new Thread((Runnable) panel);
+        hilo.start();
 
 
 

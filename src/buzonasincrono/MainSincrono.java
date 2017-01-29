@@ -1,4 +1,4 @@
-package buzonasincrono; /* en si es buzon sincrono para este Main*/
+package buzonasincrono; /* en si es buzon sincrono para este MainConsole*/
 
 import java.util.concurrent.*;
 

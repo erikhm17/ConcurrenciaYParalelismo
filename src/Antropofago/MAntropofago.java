@@ -16,7 +16,7 @@ public class MAntropofago {
         bloqueador.lock();
         while (nroMisionerosEnOlla == 0) {
             System.out.println(" Espera cocinero y Reanuda antropofago " + nombre);
-            okCocinero.signal();
+            okCocinero.signal(); // +1
             okAntropofago.await();
         }
         /** Sacar Misionero */
@@ -30,7 +30,7 @@ public class MAntropofago {
         bloqueador.lock();
         if (nroMisionerosEnOlla != 0) {
             actulizarNumeroDeMisioneros();
-            okCocinero.await();
+            okCocinero.await(); // -1
             System.out.println("Cocinero en espera " + nombre);
         }
 
